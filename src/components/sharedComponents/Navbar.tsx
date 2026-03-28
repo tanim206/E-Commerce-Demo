@@ -25,7 +25,7 @@ const Navbar = () => {
     { href: "/products/6865359afb7a0e3210631256", label: "Product Details 2", icon: <FaInfoCircle /> },
     { href: "/cart", label: "Cart", icon: <FaInfoCircle /> },
     { href: "/checkout", label: "Checkout", icon: <FaInfoCircle /> },
-    { href: "/dashboard/admin/add-product", label: "Add Product", icon: <FaPhone /> },
+    { href: "/add-product", label: "Add Product", icon: <FaPhone /> },
   ];
   if(pathname.includes("/dashboard") || pathname.includes("/signin") || pathname.includes("/signup")){
     return null; // Hide Navbar on specific pages
