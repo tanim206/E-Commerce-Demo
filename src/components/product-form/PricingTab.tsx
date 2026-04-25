@@ -15,7 +15,11 @@ interface PricingTabProps {
   setValue: (name: any, value: any) => void;
 }
 
-export default function PricingTab({ control, errors, setValue }: PricingTabProps) {
+export default function PricingTab({
+  control,
+  errors,
+  setValue,
+}: PricingTabProps) {
   const isFeatured = useWatch({ control, name: "is_featured" });
   const isActive = useWatch({ control, name: "is_active" });
 
@@ -36,15 +40,15 @@ export default function PricingTab({ control, errors, setValue }: PricingTabProp
               label="Regular Price"
               type="number"
               placeholder="0"
-              rules={{ 
-                setValueAs: (v) => v === "" ? 0 : Number(v)
+              rules={{
+                setValueAs: (v) => (v === "" ? 0 : Number(v)),
               }}
             />
             {errors.price && (
               <p className="text-xs text-red-500">{errors.price}</p>
             )}
           </div>
-          
+
           <div className="space-y-2">
             <InputField
               name="discount_price"
@@ -53,8 +57,8 @@ export default function PricingTab({ control, errors, setValue }: PricingTabProp
               type="number"
               placeholder="0"
               helperText="Leave empty if no discount"
-              rules={{ 
-                setValueAs: (v) => v === "" ? undefined : Number(v)
+              rules={{
+                setValueAs: (v) => (v === "" ? undefined : Number(v)),
               }}
             />
             {errors.discount_price && (
@@ -62,7 +66,7 @@ export default function PricingTab({ control, errors, setValue }: PricingTabProp
             )}
           </div>
         </div>
-        
+
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <InputField
@@ -71,11 +75,9 @@ export default function PricingTab({ control, errors, setValue }: PricingTabProp
               label="SKU"
               placeholder="e.g., PROD-001"
             />
-            {errors.sku && (
-              <p className="text-xs text-red-500">{errors.sku}</p>
-            )}
+            {errors.sku && <p className="text-xs text-red-500">{errors.sku}</p>}
           </div>
-          
+
           <div className="space-y-2">
             <InputField
               name="stock"
@@ -83,8 +85,8 @@ export default function PricingTab({ control, errors, setValue }: PricingTabProp
               label="Stock Quantity"
               type="number"
               placeholder="0"
-              rules={{ 
-                setValueAs: (v) => v === "" ? 0 : Number(v)
+              rules={{
+                setValueAs: (v) => (v === "" ? 0 : Number(v)),
               }}
             />
             {errors.stock && (
@@ -92,7 +94,7 @@ export default function PricingTab({ control, errors, setValue }: PricingTabProp
             )}
           </div>
         </div>
-        
+
         <div className="flex items-center justify-between pt-4">
           <div className="flex items-center gap-2">
             <Switch
@@ -101,7 +103,7 @@ export default function PricingTab({ control, errors, setValue }: PricingTabProp
             />
             <Label className="text-sm font-medium">Feature this product</Label>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <Switch
               checked={isActive}

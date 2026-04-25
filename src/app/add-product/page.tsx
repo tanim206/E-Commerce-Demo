@@ -8,7 +8,6 @@ export  default function AddProductPage() {
         <h1 className="text-3xl font-bold text-gray-900">Add New Product</h1>
         <p className="text-gray-600 mt-2">Create a new product with detailed information and specifications</p>
       </div>
-      
       <ProductForm />
     </div>
   );

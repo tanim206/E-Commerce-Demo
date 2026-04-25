@@ -24,6 +24,6 @@
     }
   },
   "include": [
-"next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/shop/page.jsx", "src/app/dashboard/page.jsx", "src/app/dashboard/admin/(orders)/list-of-orders/page.tsx'"  ],
+"next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/shop/page.jsx", "src/app/dashboard/page.jsx", "src/app/dashboard/admin/(orders)/list-of-orders/page.tsx'", "src/app/product-details/[id]/page.jsx"  ],
   "exclude": ["node_modules"]
 }

@@ -21,7 +21,7 @@ const Navbar = () => {
 
   const navLinks = [
     { href: "/", label: "Home", icon: <FaHome /> },
-    { href: "/products/6865354ffb7a0e3210631255", label: "Product Details 1", icon: <FaInfoCircle /> },
+    { href: "/product-details/69cbc10725e2f5ef4d926c81", label: "Product Details 1", icon: <FaInfoCircle /> },
     { href: "/products/6865359afb7a0e3210631256", label: "Product Details 2", icon: <FaInfoCircle /> },
     { href: "/cart", label: "Cart", icon: <FaInfoCircle /> },
     { href: "/checkout", label: "Checkout", icon: <FaInfoCircle /> },
