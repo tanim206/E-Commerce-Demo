@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Controller, Control, RegisterOptions, useWatch, FieldValues, PathValue, Path } from "react-hook-form";
+import { Controller, Control, RegisterOptions, useWatch, FieldValues, PathValue, Path, useController } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCloudinaryUpload } from "@/components/sharedComponents/uploadFiles/uploadCloudinary";
@@ -145,23 +145,25 @@ const SingleSelect = <T extends FieldValues>({
   const [isTyping, setIsTyping] = useState(false);
   const prevFieldValue = useRef<string | undefined>(undefined);
 
+  const { field, fieldState: { error } } = useController({
+    name: name as Path<T>,
+    control,
+    defaultValue: defaultValue as PathValue<T, Path<T>> || (options[0]?.value as PathValue<T, Path<T>>),
+    rules: rules as Omit<RegisterOptions<T>, "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate">,
+  });
+
+  useEffect(() => {
+    if (!isTyping && prevFieldValue.current !== field.value) {
+      const currentOption = options.find(opt => opt.value === field.value);
+      setInputValue(currentOption?.label || "");
+      prevFieldValue.current = field.value;
+    }
+  }, [field.value, isTyping, options]);
+
   return (
     <div className={`w-full ${className}`}>
       {label && <Label className={labelClasses}>{label}</Label>}
-      <Controller
-        name={name as Path<T>}
-        control={control}
-        defaultValue={defaultValue as PathValue<T, Path<T>> || (options[0]?.value as PathValue<T, Path<T>>)}
-        rules={rules as Omit<RegisterOptions<T>, "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate">}
-        render={({ field, fieldState: { error } }) => {
-          if (!isTyping && prevFieldValue.current !== field.value) {
-            const currentOption = options.find(opt => opt.value === field.value);
-            setInputValue(currentOption?.label || "");
-            prevFieldValue.current = field.value;
-          }
-
-          return (
-            <>
+      <div className="relative">
               <div className="relative">
                 <input
                   list={`${name}-options`}
@@ -208,10 +210,7 @@ const SingleSelect = <T extends FieldValues>({
               
               {helperText && !error && <p className={helperTextClasses}>{helperText}</p>}
               {error && <p className={errorTextClasses}>{error.message}</p>}
-            </>
-          );
-        }}
-      />
+      </div>
     </div>
   );
 };

@@ -1,12 +1,43 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { FiSearch, FiMapPin, FiCalendar, FiUser } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+
+interface FloatingShape {
+  width: number;
+  height: number;
+  left: number;
+  top: number;
+  x: number;
+  y: number;
+  duration: number;
+}
+
+function generateShapes(): FloatingShape[] {
+  return [...Array(8)].map((_, i) => {
+    const seed = i * 1000;
+    const random = (offset: number) => {
+      const x = Math.sin(seed + offset) * 10000;
+      return x - Math.floor(x);
+    };
+    return {
+      width: random(1) * 300 + 100,
+      height: random(2) * 300 + 100,
+      left: random(3) * 100,
+      top: random(4) * 100,
+      x: random(5) * 100 - 50,
+      y: random(6) * 100 - 50,
+      duration: random(7) * 20 + 10,
+    };
+  });
+}
 
 export default function ShebaZoneBanner() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('doctors');
+
+  const shapes = useMemo(() => generateShapes(), []);
 
   return (
     <div className="relative bg-white overflow-hidden min-h-screen flex items-center justify-center">
@@ -15,23 +46,23 @@ export default function ShebaZoneBanner() {
       
       {/* Floating organic shapes */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
-        {[...Array(8)].map((_, i) => (
+        {shapes.map((shape, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full bg-green-100"
             style={{
-              width: Math.random() * 300 + 100,
-              height: Math.random() * 300 + 100,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              width: shape.width,
+              height: shape.height,
+              left: `${shape.left}%`,
+              top: `${shape.top}%`,
             }}
             animate={{
-              x: [0, Math.random() * 100 - 50],
-              y: [0, Math.random() * 100 - 50],
+              x: [0, shape.x],
+              y: [0, shape.y],
               opacity: [0.2, 0.4, 0.2],
             }}
             transition={{
-              duration: Math.random() * 20 + 10,
+              duration: shape.duration,
               repeat: Infinity,
               repeatType: "reverse",
             }}
